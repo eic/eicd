@@ -39,7 +39,7 @@ target_include_directories(eicd_core
 
 install(FILES 
   include/eicd/helpers.h
-  DESTINATION include
+  DESTINATION include/eicd
   )
 #install(FILES
 #  "${CMAKE_CURRENT_BINARY_DIR}/libNPDetGeoCad.rootmap"
