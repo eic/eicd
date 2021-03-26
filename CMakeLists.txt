@@ -47,6 +47,9 @@ PODIO_GENERATE_DICTIONARY(eicd ${headers}
 set_target_properties(eicd-dictgen PROPERTIES EXCLUDE_FROM_ALL TRUE)
 target_sources(eicd PRIVATE eicd.cxx)
 
+add_subdirectory(source)
+
+
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/eicd
   DESTINATION include
   FILES_MATCHING PATTERN *.h
@@ -72,7 +75,6 @@ add_custom_target( doc_doxygen #ALL
   VERBATIM )
 
 
-add_subdirectory(source)
 
 # -------------------------
 # install library config

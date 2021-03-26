@@ -13,8 +13,6 @@ find_package(ROOT REQUIRED COMPONENTS GenVector MathCore)
 add_library(eicd_core SHARED
   src/helpers.cxx
   )
-add_dependencies(eicd_core
-  PUBLIC eicd)
 
 target_compile_features(eicd_core
     PUBLIC cxx_auto_type
@@ -30,6 +28,7 @@ target_compile_options(eicd_core PRIVATE
   -Wno-shadow)
 
 target_link_libraries(eicd_core 
+  PUBLIC eicd
   PUBLIC ROOT::GenVector ROOT::MathCore)
 
 target_include_directories(eicd_core 
