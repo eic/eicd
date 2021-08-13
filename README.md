@@ -18,6 +18,12 @@ The entire data model is defined with a single YAML file. Here is the current de
 \verbinclude eic_data.yaml
 
 
+### dd4pod data model
+
+This is useful for mc truth.
+
+\verbinclude dd4pod.yaml
+
 ## Installing
 
 ```
