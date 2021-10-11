@@ -172,6 +172,7 @@ components:
       declaration: "
         VectorXYZT() : x{0}, y{0}, z{0}, t{0} {}\n
         VectorXYZT(double xx, double yy, double zz, double tt) : x{xx}, y{yy}, z{zz}, t{tt} {}\n
+        VectorXYZT(const VectorXYZ& rr, double tt): x{rr.x}, y{rr.y}, z{rr.}, t{tt} {}\n
         double& operator[](unsigned i) {return *(&x + i);}\n
         const double& operator[](unsigned i) const {return *(&x + i);}\n
         double mag() const {return std::hypot(x, y, z);}\n
