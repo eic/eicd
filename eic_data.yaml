@@ -180,6 +180,7 @@ components:
         double phi() const {return atan2(y,x);}\n
         double eta() const {return -log(tan(0.5*theta()));}
         double energy() const {return t;}\n
+        double mass2() const {return t*t - x*x - y*y - z*z;}\n
         double mass() const {return sqrt(t*t - x*x - y*y - z*z);}\n
         operator std::tuple<double, double, double, double>() {return {x, y, z, t};}\n
         double dot(const VectorXYZT& rhs) const {return t*rhs.t - x*rhs.x - y*rhs.y - z*rhs.z;}\n
