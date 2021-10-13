@@ -132,6 +132,7 @@ components:
         float& operator[](unsigned i) {return *(&x + i);}\n
         const float& operator[](unsigned i) const {return *(&x + i);}\n
         float mag() const {return std::hypot(x, y, z);}\n
+        float mag2() const {return x*x + y*y + z*z;}\n
         float r() const {return mag();}\n
         float theta() const {return acos(z/mag());}\n
         float phi() const {return atan2(y,x);}\n
@@ -154,6 +155,7 @@ components:
         VectorPolar(double rr, double th, double ph) : r{static_cast<float>(rr)}, theta{static_cast<float>(th)}, phi{static_cast<float>(ph)} {}\n
         template<class VectorXYZType> VectorPolar(const VectorXYZType& v) : VectorPolar(v.r(), v.theta(), v.phi()) {}\n
         float mag() const {return r;}\n
+        float mag2() const {return r*r;}\n
         float x() const {return r * cos(phi) * sin(theta);}\n
         float y() const {return r * sin(phi) * sin(theta);}\n
         float z() const {return r * cos(theta);}\n
@@ -172,9 +174,11 @@ components:
       declaration: "
         VectorXYZT() : x{0}, y{0}, z{0}, t{0} {}\n
         VectorXYZT(double xx, double yy, double zz, double tt) : x{xx}, y{yy}, z{zz}, t{tt} {}\n
+        template<class VectorXYZType> VectorXYZT(const VectorXYZType& v, double tt): x{v.x()}, y{v.y()}, z{v.z()}, t{tt} {}\n
         double& operator[](unsigned i) {return *(&x + i);}\n
         const double& operator[](unsigned i) const {return *(&x + i);}\n
         double mag() const {return std::hypot(x, y, z);}\n
+        double mag2() const {return x*x + y*y + z*z;}\n
         double r() const {return mag();}\n
         double theta() const {return acos(z/mag());}\n
         double phi() const {return atan2(y,x);}\n
