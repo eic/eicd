@@ -268,6 +268,24 @@ datatypes:
         bool isCompound() const {return particles_size() > 0;}\n
         "
 
+      - eic::Index        pidID             // Index of the associated Cherenkov PID, if any
+
+
+  eic::CherenkovMassHypothesis:
+    Description: "Cherenkov detector PID mass hypothesis"
+    Author: "A. Kiselev, C. Dilks"
+    Members:
+      - eic::Index        ID                // Unique entry ID
+      - int16_t           npe               // Overall p.e. count associated with this hypothesis for a given track
+      - float             weight            // The mass of the particle in [GeV]
+
+  eic::CherenkovPID:
+    Description: "Cherenkov detector PID"
+    Author: "A. Kiselev, C. Dilks"
+    Members:
+      - eic::Index        ID                // Unique entry ID
+      - std::array<eic::Index, 4> hypotheses// (Up to 4) mass hypotheses (e/pi/K/p)
+
   ## ==========================================================================
   ## Calorimetry
   ## ==========================================================================
