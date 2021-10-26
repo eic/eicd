@@ -313,14 +313,23 @@ datatypes:
       - eic::Index        tofID             // Index of the associated TOF info, if any
       - eic::Index        mcID              // Index of the associated MC particle, if any
 
-      - eic::Index        pidID             // Index of the associated Cherenkov PID, if any
 
+  eic::ReconstructedParticleLocation:
+    Description: "EIC Reconstructed Particle Location"
+    Author: "W. Armstrong, S. Joosten"
+    Members:
+      - eic::Index        ID                // Unique particle index
+      - eic::VectorXYZ    p                 // Momentum vector [GeV]
+      - eic::VectorXYZ    v                 // Vertex [mm]
+
+      - eic::Index        recID             // Index of the associated ReconstructedParticle particle, if any
 
   eic::CherenkovMassHypothesis:
     Description: "Cherenkov detector PID mass hypothesis"
     Author: "A. Kiselev, C. Dilks"
     Members:
       - eic::Index        ID                // Unique entry ID
+      - int32_t           pdg               // PDG code
       - int16_t           npe               // Overall p.e. count associated with this hypothesis for a given track
       - float             weight            // The mass of the particle in [GeV]
 
@@ -329,7 +338,9 @@ datatypes:
     Author: "A. Kiselev, C. Dilks"
     Members:
       - eic::Index        ID                // Unique entry ID
-      - std::array<eic::Index, 4> hypotheses// (Up to 4) mass hypotheses (e/pi/K/p)
+      - std::array<eic::Index, 4> hypothesis// (Up to 4) mass hypotheses (e/pi/K/p)
+
+      - eic::Index        recID             // Index of the associated ReconstructedParticle particle, if any
 
   ## ==========================================================================
   ## Calorimetry
