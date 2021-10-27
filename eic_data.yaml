@@ -253,7 +253,14 @@ components:
       - eic::Direction    direction     // (theta, phi) direction of track at the surface [mrad]
       - float             momentum      // magnitude of 3-momentum [GeV]
       - float             pathlength    // Pathlength from the origin to this point
- 
+
+  ## PID hypothesis from Cherenkov detectors
+  eic::CherenkovPdgHypothesis:
+    Members:
+      - int32_t           pdg               // PDG code
+      - int16_t           npe               // Overall p.e. count associated with this hypothesis for a given track
+      - float             weight            // The weight associated with this hypothesis (the higher the more probable)
+
 datatypes:
 
   ## ==========================================================================
@@ -314,41 +321,15 @@ datatypes:
       - eic::Index        mcID              // Index of the associated MC particle, if any
 
 
-  eic::ChargedParticleLocation:
-    Description: "EIC Particle Location"
-    Author: "A. Kiselev, C. Dilks"
-    Members:
-      - eic::Index        ID                // Unique index
-      - eic::VectorXYZ    p                 // Momentum vector [GeV]
-      - eic::VectorXYZ    v                 // 3D location [mm]
-      - float             t                 // Time [ns]
-
-  eic::ChargedParticleTrajectory:
-    Description: "EIC Charged Particle Trajectory"
-    Author: "A. Kiselev, C. Dilks"
-    Members:
-      - eic::Index        ID                // Unique index
-      - std::array<eic::Index, 10> location // (Up to 10, let's be generous) particle locations, ordered in time
-
-      - eic::Index        recID             // Index of the associated ReconstructedParticle particle, if any
-
-  eic::CherenkovMassHypothesis:
-    Description: "Cherenkov detector PID mass hypothesis"
-    Author: "A. Kiselev, C. Dilks"
-    Members:
-      - eic::Index        ID                // Unique entry ID
-      - int32_t           pdg               // PDG code
-      - int16_t           npe               // Overall p.e. count associated with this hypothesis for a given track
-      - float             weight            // The weight associated with this hypothesis (the higher the more probable)
-
-  eic::CherenkovPID:
+  eic::CherenkovParticleID:
     Description: "Cherenkov detector PID"
     Author: "A. Kiselev, C. Dilks"
     Members:
       - eic::Index        ID                // Unique entry ID
-      - std::array<eic::Index, 4> hypothesis// (Up to 4) mass hypotheses (e/pi/K/p)
-
       - eic::Index        recID             // Index of the associated ReconstructedParticle particle, if any
+
+    VectorMembers:
+      - eic::CherenkovPdgHypothesis options // Evaluated PDG hypotheses, typically (e/pi/K/p)
 
   ## ==========================================================================
   ## Calorimetry
