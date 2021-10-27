@@ -305,13 +305,21 @@ datatypes:
       - eic::Index        mcID              // Index of the associated MC particle, if any
 
 
-  eic::ReconstructedParticleLocation:
-    Description: "EIC Reconstructed Particle Location"
-    Author: "W. Armstrong, S. Joosten"
+  eic::ChargedParticleLocation:
+    Description: "EIC Particle Location"
+    Author: "A. Kiselev, C. Dilks"
     Members:
-      - eic::Index        ID                // Unique particle index
+      - eic::Index        ID                // Unique index
       - eic::VectorXYZ    p                 // Momentum vector [GeV]
-      - eic::VectorXYZ    v                 // Vertex [mm]
+      - eic::VectorXYZ    v                 // 3D location [mm]
+      - float             t                 // Time [ns]
+
+  eic::ChargedParticleTrajectory:
+    Description: "EIC Charged Particle Trajectory"
+    Author: "A. Kiselev, C. Dilks"
+    Members:
+      - eic::Index        ID                // Unique index
+      - std::array<eic::Index, 10> location // (Up to 10, let's be generous) particle locations, ordered in time
 
       - eic::Index        recID             // Index of the associated ReconstructedParticle particle, if any
 
@@ -322,7 +330,7 @@ datatypes:
       - eic::Index        ID                // Unique entry ID
       - int32_t           pdg               // PDG code
       - int16_t           npe               // Overall p.e. count associated with this hypothesis for a given track
-      - float             weight            // The mass of the particle in [GeV]
+      - float             weight            // The weight associated with this hypothesis (the higher the more probable)
 
   eic::CherenkovPID:
     Description: "Cherenkov detector PID"
