@@ -183,14 +183,41 @@ components:
         double theta() const {return acos(z/mag());}\n
         double phi() const {return atan2(y,x);}\n
         double eta() const {return -log(tan(0.5*theta()));}
+        operator std::tuple<double, double, double, double>() {return {x, y, z, t};}\n
+        VectorXYZT add(const VectorXYZT& rhs) const {return {x+rhs.x, y+rhs.y, z+rhs.z, t+rhs.t};}\n
+        VectorXYZT subtract(const VectorXYZT& rhs) const {return {x-rhs.x, y-rhs.y, z-rhs.z, t-rhs.t};}\n
+        VectorXYZT scale(double f) const {return {f*x, f*y, f*z, f*t};}\n
+      "
+
+
+  eic::LorentzVectorXYZT:
+    Members:
+      - double x        // [mm] or [GeV]
+      - double y        //
+      - double z        //
+      - double t        // [ns] or [GeV]
+    ExtraCode:
+      includes: "#include <cmath>\n#include <tuple>"
+      declaration: "
+        LorentzVectorXYZT() : x{0}, y{0}, z{0}, t{0} {}\n
+        LorentzVectorXYZT(double xx, double yy, double zz, double tt) : x{xx}, y{yy}, z{zz}, t{tt} {}\n
+        template<class VectorXYZType> LorentzVectorXYZT(const VectorXYZType& v, double tt): x{v.x()}, y{v.y()}, z{v.z()}, t{tt} {}\n
+        double& operator[](unsigned i) {return *(&x + i);}\n
+        const double& operator[](unsigned i) const {return *(&x + i);}\n
+        double mag2() const {return x*x + y*y + z*z - t*t;}\n
+        double mag() const {return std::sqrt(mag2());}\n
+        double r() const {return mag();}\n
+        double theta() const {return acos(z/mag());}\n
+        double phi() const {return atan2(y,x);}\n
+        double eta() const {return -log(tan(0.5*theta()));}
         double energy() const {return t;}\n
         double mass2() const {return t*t - x*x - y*y - z*z;}\n
         double mass() const {return sqrt(t*t - x*x - y*y - z*z);}\n
         operator std::tuple<double, double, double, double>() {return {x, y, z, t};}\n
-        double dot(const VectorXYZT& rhs) const {return t*rhs.t - x*rhs.x - y*rhs.y - z*rhs.z;}\n
-        VectorXYZT add(const VectorXYZT& rhs) const {return {x+rhs.x, y+rhs.y, z+rhs.z, t+rhs.t};}\n
-        VectorXYZT subtract(const VectorXYZT& rhs) const {return {x-rhs.x, y-rhs.y, z-rhs.z, t-rhs.t};}\n
-        VectorXYZT scale(double f) const {return {f*x, f*y, f*z, f*t};}\n
+        double dot(const LorentzVectorXYZT& rhs) const {return t*rhs.t - x*rhs.x - y*rhs.y - z*rhs.z;}\n
+        LorentzVectorXYZT add(const LorentzVectorXYZT& rhs) const {return {x+rhs.x, y+rhs.y, z+rhs.z, t+rhs.t};}\n
+        LorentzVectorXYZT subtract(const LorentzVectorXYZT& rhs) const {return {x-rhs.x, y-rhs.y, z-rhs.z, t-rhs.t};}\n
+        LorentzVectorXYZT scale(double f) const {return {f*x, f*y, f*z, f*t};}\n
       "
 
   eic::CovDiagXYZ:
