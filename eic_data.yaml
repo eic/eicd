@@ -212,8 +212,9 @@ components:
   ## PID hypothesis from Cherenkov detectors
   eic::CherenkovPdgHypothesis:
     Members:
+      - char              radiator          // Radiator number (0/1/..) in a sequence of the IRTAlgorithm configuration file
       - int32_t           pdg               // PDG code
-      - int16_t           npe               // Overall p.e. count associated with this hypothesis for a given track
+      - float             npe               // Overall p.e. count associated with this hypothesis for a given track
       - float             weight            // The weight associated with this hypothesis (the higher the more probable)
 
 datatypes:
