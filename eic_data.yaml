@@ -34,7 +34,7 @@ components:
       - int32_t    source
     ExtraCode:
       declaration: "
-        Index() : source{0}, value{-1} {}\n
+        Index() :  value{-1}, source{0} {}\n
         Index(int32_t id) : value{id}, source{0} {}\n
         Index(int32_t id, int32_t src) : value{id}, source{src} {}\n
         Index(Index rhs, int32_t new_src) : Index(rhs.value, new_src) {} \n
@@ -262,6 +262,14 @@ components:
       - float             npe               // Overall p.e. count associated with this hypothesis for a given track
       - float             weight            // The weight associated with this hypothesis (the higher the more probable)
 
+  ## PID hypothesis from TOF detector(s)
+  eic::TofPdgHypothesis:
+    Members:
+      - char              detector          // Let's say 0[e-endcap] / 1[barrel] / 2[h-endcap]
+      - int32_t           pdg               // PDG code
+      - float             chi2cdf           // Like chi^2 cumulative distribution function for [tof_meas-tof_hyp]^2/sigma^2
+      - float             reserved          // Reserved field
+
 datatypes:
 
   ## ==========================================================================
@@ -330,6 +338,15 @@ datatypes:
       - eic::Index        recID             // Index of the associated ReconstructedParticle particle, if any
     VectorMembers:
       - eic::CherenkovPdgHypothesis options // Evaluated PDG hypotheses, typically (e/pi/K/p)
+
+  eic::TofParticleID:
+    Description: "TOF detector PID"
+    Author: "Z. Ye"
+    Members:
+      - eic::Index        ID                // Unique entry ID
+      - eic::Index        recID             // Index of the associated ReconstructedParticle particle, if any
+    VectorMembers:
+      - eic::TofPdgHypothesis options       // Evaluated PDG hypotheses, typically (e/pi/K/p)
 
   ## ==========================================================================
   ## Calorimetry
