@@ -345,6 +345,7 @@ datatypes:
     Members:
       - eic::Index        ID                // Unique entry ID
       - eic::Index        recID             // Index of the associated ReconstructedParticle particle, if any
+      - float             reserved          // Reserved field
     VectorMembers:
       - eic::TofPdgHypothesis options       // Evaluated PDG hypotheses, typically (e/pi/K/p)
 
