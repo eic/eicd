@@ -217,6 +217,13 @@ components:
       - float             npe               // Overall p.e. count associated with this hypothesis for a given track
       - float             weight            // The weight associated with this hypothesis (the higher the more probable)
 
+  ## Cherenkov angle measurement for a given radiator
+  eic::CherenkovThetaAngleMeasurement:
+    Members:
+      - char              radiator          // Radiator number (0/1/..) in a sequence of the IRTAlgorithm configuration file
+      - float             npe               // Overall p.e. count associated with this estimate
+      - float             theta             // Cherenkov theta angle
+
 datatypes:
 
   ## ==========================================================================
@@ -290,10 +297,11 @@ datatypes:
     Description: "Cherenkov detector PID"
     Author: "A. Kiselev, C. Dilks"
     Members:
-      - eic::Index        ID                // Unique entry ID
-      - eic::Index        recID             // Index of the associated ReconstructedParticle particle, if any
+      - eic::Index        ID                       // Unique entry ID
+      - eic::Index        recID                    // Index of the associated ReconstructedParticle particle, if any
     VectorMembers:
-      - eic::CherenkovPdgHypothesis options // Evaluated PDG hypotheses, typically (e/pi/K/p)
+      - eic::CherenkovPdgHypothesis options        // Evaluated PDG hypotheses, typically (e/pi/K/p)
+      - eic::CherenkovThetaAngleMeasurement angles // Evaluated Cherenkov angles for different radiators
 
   ## ==========================================================================
   ## Calorimetry
