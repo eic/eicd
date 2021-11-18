@@ -268,6 +268,7 @@ components:
       - char              radiator          // Radiator number (0/1/..) in a sequence of the IRTAlgorithm configuration file
       - float             npe               // Overall p.e. count associated with this estimate
       - float             theta             // Cherenkov theta angle
+      - float             rindex            // Average refractive index for this collection of photons
 
 datatypes:
 
