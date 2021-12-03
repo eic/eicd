@@ -224,6 +224,7 @@ components:
       - float             npe               // Overall p.e. count associated with this estimate
       - float             theta             // Cherenkov theta angle
       - float             rindex            // Average refractive index for this collection of photons
+      - float             wavelength        // Average wavelength for this collection of photons
 
 datatypes:
 
