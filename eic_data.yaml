@@ -509,6 +509,7 @@ datatypes:
     Author: "S. Joosten, S. Li"
     Members:
       - uint32_t          type              // 0 (does not have good track fit), 1 (has good track fit)
+      - float             charge            // Charge corresponding to this trajectory
       - uint32_t          nStates           // Number of tracking steps
       - uint32_t          nMeasurements     // Number of hits used 
       - uint32_t          nOutliers         // Number of hits not considered 
@@ -529,11 +530,14 @@ datatypes:
     Members:
       - int32_t           type              // Type of track parameters (-1/seed, 0/head, ...)
       - eic::VectorXY     loc               // 2D location on surface
+      - eic::CovXY        covLoc            // Covariance on loc
       - float             theta             // Track polar angle [rad]
       - float             phi               // Track azimuthal angle [rad]
       - float             qOverP            // [e/GeV]
+      - eic::CovXYZ       covMomentum       // Covariance on theta, phi and qOverP
       - float             time              // Track time [ns]    
-      - std::array<float, 21> covMatrix     // Lower triangle of the track parameter covariance matrix, flattened similar to CovXYZ
+      - float             timeError         // Error on the time
+      - float             charge            // Particle charge
     OneToOneRelations:
       - eic::Trajectory   trajectory        // Trajectory associated with these track parameters
 
@@ -545,7 +549,7 @@ datatypes:
       - float             chi2              // Total chi2 (sum) of the track fit
       - int32_t           ndf               // Numbers of degrees of freedom of the track fit
       - eic::VectorXYZ    momentum          // Track 3-momentum at the vertex [GeV]
-      - eic::CovXYZ       momentumError     // Covariance matrix on the momentum
+      - eic::CovXYZ       covMomentum       // Covariance matrix on the momentum
       - float             time              // Track time at the vertex [ns]
       - float             timeError         // Error on the track vertex time
       - float             charge            // Particle charge
