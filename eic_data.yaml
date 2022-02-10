@@ -218,7 +218,7 @@ components:
     ExtraCode:
       declaration: "
         CovXY() : xx{0}, yy{0}, xy{0} {}\n
-        CovXY(double vx, double vy, double vxy)\n
+        CovXY(double vx, double vy, double vxy = 0)\n
           : xx{static_cast<float>(vx)}, yy{static_cast<float>(vy)}, xy{static_cast<float>(vxy)} {}\n
         float operator()(unsigned i, unsigned j) const {\n
           // diagonal\n
@@ -252,6 +252,8 @@ components:
         CovXYZ(double vx, double vy, double vz, double vxy, double vxz, double vyz)\n
           : xx{static_cast<float>(vx)}, yy{static_cast<float>(vy)}, zz{static_cast<float>(vz)},\n
             xy{static_cast<float>(vxy)}, xz{static_cast<float>(vxz)}, yz{static_cast<float>(vyz)} {}\n
+        CovXYZ(double vx, double vy, double vz)\n
+          : CovXYZ(vx, vy, vz, 0, 0, 0) {} \n
         float operator()(unsigned i, unsigned j) const {\n
           // diagonal\n
           if (i == j) {\n
