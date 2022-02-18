@@ -78,6 +78,46 @@ components:
         VectorXY scale(double f) const {return {f*x, f*y};}\n
       "
 
+  # Copy from EDM4hep with conversion operators added
+  # TODO: uncomment Vector2f conversions when we migrate to new EDM4hep version
+  eicd::Vector2f :
+    Members:
+      - float a
+      - float b
+    ExtraCode:
+      declaration: "
+        Vector2f() : a(0),b(0) {}\n
+        Vector2f(float aa,float bb) : a(aa),b(bb) {}\n
+        Vector2f(const float* v) : a(v[0]), b(v[1]) {}\n
+        bool operator==(const Vector2f& v) const { return (a==v.a&&b==v.b) ; }\n
+        float operator[](unsigned i) const { return *( &a + i ) ; }\n
+        //Vector2f(const edm4hep::Vector2f& v) : a{v.a}, b{v.b} {}\n
+        //operator edm4hep::Vector2f() const {return {a, b};}\n
+        "
+      includes: "
+       // #include <edm4hep/Vector2f.h>\n
+      "
+
+  # Copy from EDM4hep with conversion operators added
+  eicd::Vector3f :
+    Members:
+      - float x
+      - float y
+      - float z
+    ExtraCode:
+      declaration: "
+        Vector3f() : x(0),y(0),z(0) {}\n
+        Vector3f(float xx, float yy, float zz) : x(xx),y(yy),z(zz) {}\n
+        Vector3f(const float* v) : x(v[0]),y(v[1]),z(v[2]) {}\n
+        bool operator==(const Vector3f& v) const { return (x==v.x&&y==v.y&&z==v.z) ; }\n
+        float operator[](unsigned i) const { return *( &x + i ) ; }\n
+        Vector3f(const edm4hep::Vector3f& v) : x{v.x}, y{v.y}, z{v.z} {}
+        operator edm4hep::Vector3f() const {return {x, y, z};}\n
+        "
+      includes: "
+        #include <edm4hep/Vector3f.h>\n
+      "
+
   eic::VectorXYZ:
     Members:
       - float x          // [mm] or [GeV]
@@ -257,8 +297,8 @@ datatypes:
     Author: "W. Armstrong, S. Joosten"
     Members:
       - eic::Index        ID                // Unique particle index
-      - eic::VectorXYZ    p                 // Momentum [GeV]
-      - eic::VectorXYZ    v                 // Vertex [mm]
+      - eicd::Vector3f     p                 // Momentum [GeV]
+      - eicd::Vector3f     v                 // Vertex [mm]
       - float             time              // Time in [ns]
       - int32_t           pid               // Particle PDG code
       - int16_t           status            // Status code
