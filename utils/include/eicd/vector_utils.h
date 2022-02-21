@@ -21,10 +21,13 @@ namespace eicd {
 template <class V> concept VectorHasX = requires(V v) { v.x; };
 template <class V> concept VectorHasY = requires(V v) { v.y; };
 template <class V> concept VectorHasZ = requires(V v) { v.z; };
+template <class V> concept ClassVector = requires(V v) { v.x(); };
 template <class V>
-concept Vector2D = VectorHasX<V>&& VectorHasY<V> && !VectorHasZ<V>;
+concept Vector2D =
+    VectorHasX<V>&& VectorHasY<V> && !VectorHasZ<V> && !ClassVector<V>;
 template <class V>
-concept Vector3D = VectorHasX<V>&& VectorHasY<V>&& VectorHasZ<V>;
+concept Vector3D =
+    VectorHasX<V>&& VectorHasY<V>&& VectorHasZ<V> && !ClassVector<V>;
 template <class V> concept VectorND = Vector2D<V> || Vector3D<V>;
 
 inline double etaToAngle(const double eta) {

@@ -349,30 +349,9 @@ datatypes:
       - float             timeError         // Error on the time
       - eic::VectorXYZ    position          // The global position of the hit in world coordinates [mm].
       - eic::VectorXYZ    dimension         // The dimension information of the cell [mm].
-      ## TODO: deterimine if position/dimension is really what we want
-      ##       compared to position/positionError for consistency with TrackerHit
-      #
-      #
-  eic::CalorimeterHitLocPos:
-    Description: "Local position info associated with a calorimeter hit"
-    Author: "S. Joosten"
-    Members:
       - int32_t           sector            // Sector that this hit occured in
       - int32_t           layer             // Layer that the hit occured in
       - eic::VectorXYZ    local             // The local coordinates of the hit in the detector segment [mm]. 
-    OneToOneRelations:
-      - eic::CalorimeterHit hit             // Associated calorimeter hit
-    ConstExtraCode:
-      includes: "#include <eicd/CalorimeterHitConst.h>"
-      declaration: "
-        uint64_t cellID() const {return hit().cellID();}\n
-        float energy() const {return hit().energy();}\n
-        float energyError() const {return hit().energyError();}\n
-        float time() const {return hit().time();}\n
-        float timeError() const {return hit().timeError();}\n
-        const eic::VectorXYZ& position() const {return hit().position();}\n
-        const eic::VectorXYZ& dimension() const {return hit().dimension();}\n
-        "
 
   ## ==========================================================================
   ## Clustering
@@ -402,13 +381,6 @@ datatypes:
       - float             intrinsicTheta    // Intrinsic cluster propagation direction polar angle [rad]
       - float             intrinsicPhi      // Intrinsic cluster propagation direction azimuthal angle [rad]
       - eic::CovXY        intrinsicDirectionError // Error on the intrinsic cluster propagation direction
-      # extra utility variables to facilitate analysis
-      - float             theta             // Cluster polar angle
-      - float             phi               // Cluster azimuthal angle
-      - float             eta               // Cluster pseudorapidity
-      # this link is deprecated and will be replaced with a more EDM4hep-style link
-      # TODO
-      - eic::Index        mcID              // For MC only - associated MC particle
     VectorMembers:
       - float             shapeParameters   // Should be set in metadata, for now radius/skewness
       - float             hitContributions  // Energy contributions of the hits. Runs parallel to ::hits()
