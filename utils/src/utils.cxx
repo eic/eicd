@@ -1,2 +1,2 @@
-#include "eicd/utils/analysis.h"
-#include "eicd/utils/vector.h"
+#include "eicd/analysis_utils.h"
+#include "eicd/vector_utils.h"

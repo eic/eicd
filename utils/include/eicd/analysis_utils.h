@@ -14,7 +14,7 @@
 #include <eicd/ReconstructedParticleData.h>
 #include <eicd/TrackParametersCollection.h>
 
-namespace eicd::utils {
+namespace eicd {
 
 /** Four momentum from track and mass.
  * Get a vector of 4-momenta from raw tracking info, using an externally
@@ -39,5 +39,5 @@ momenta_from_tracking(const std::vector<eic::TrackParametersData>& tracks,
                  });
   return momenta;
 }
-} // namespace eicd::utils
+} // namespace eicd
 #endif

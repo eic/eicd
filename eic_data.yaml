@@ -128,6 +128,8 @@ components:
       declaration: "
         VectorXYZ() : x{0}, y{0}, z{0} {}\n
         VectorXYZ(double xx, double yy, double zz) : x{static_cast<float>(xx)}, y{static_cast<float>(yy)}, z{static_cast<float>(zz)} {}\n
+        template <class V>
+        VectorXYZ(const V& v) : x{v.x}, y{v.y}, z{v.z} {}\n
         float& operator[](unsigned i) {return *(&x + i);}\n
         const float& operator[](unsigned i) const {return *(&x + i);}\n
         float mag() const {return std::hypot(x, y, z);}\n
@@ -140,11 +142,6 @@ components:
         VectorXYZ add(const VectorXYZ& rhs) const {return {x+rhs.x, y+rhs.y, z+rhs.z};}\n
         VectorXYZ subtract(const VectorXYZ& rhs) const {return {x-rhs.x, y-rhs.y, z-rhs.z};}\n
         VectorXYZ scale(double f) const {return {f*x, f*y, f*z};}\n
-        static VectorXYZ fromSpherical(const double r, const double theta, const double phi) {\n
-          return {r * cos(phi) * sin(theta), \n
-                  r * sin(phi) * sin(theta), \n
-                  r * cos(theta)}; \n
-        }
      "
 
   eic::VectorXYZT:
@@ -351,11 +348,31 @@ datatypes:
       - float             time              // The time of the hit in [ns].
       - float             timeError         // Error on the time
       - eic::VectorXYZ    position          // The global position of the hit in world coordinates [mm].
-      - eic::VectorXYZ    local             // The local position of the hit in detector coordinates [mm].
       - eic::VectorXYZ    dimension         // The dimension information of the cell [mm].
       ## TODO: deterimine if position/dimension is really what we want
       ##       compared to position/positionError for consistency with TrackerHit
-
+      #
+      #
+  eic::CalorimeterHitLocPos:
+    Description: "Local position info associated with a calorimeter hit"
+    Author: "S. Joosten"
+    Members:
+      - int32_t           sector            // Sector that this hit occured in
+      - int32_t           layer             // Layer that the hit occured in
+      - eic::VectorXYZ    local             // The local coordinates of the hit in the detector segment [mm]. 
+    OneToOneRelations:
+      - eic::CalorimeterHit hit             // Associated calorimeter hit
+    ConstExtraCode:
+      includes: "#include <eicd/CalorimeterHitConst.h>"
+      declaration: "
+        uint64_t cellID() const {return hit().cellID();}\n
+        float energy() const {return hit().energy();}\n
+        float energyError() const {return hit().energyError();}\n
+        float time() const {return hit().time();}\n
+        float timeError() const {return hit().timeError();}\n
+        const eic::VectorXYZ& position() const {return hit().position();}\n
+        const eic::VectorXYZ& dimension() const {return hit().dimension();}\n
+        "
 
   ## ==========================================================================
   ## Clustering
@@ -366,6 +383,8 @@ datatypes:
     Author: "S. Joosten"
     OneToManyRelations:
       - eic::CalorimeterHit  hits           // Hits associated with this cluster
+    VectorMembers:
+      - float                weights        // Weight for each of the hits, mirrors hits array
 
   eic::Cluster:
     Description: "EIC hit cluster, reworked to more closely resemble EDM4hep"
