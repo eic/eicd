@@ -218,13 +218,13 @@ datatypes:
   ## Particle info
   ## ==========================================================================
 
-  eic::BasicParticle:
+  eicd::BasicParticle:
     #DEPRECATED
     Description: "Basic particle used internally to communicate basic particle properties."
     Author: "W. Armstrong, S. Joosten"
     Members:
-      - eicd::Vector3f     p                 // Momentum [GeV]
-      - eicd::Vector3d     v                 // Vertex [mm]
+      - eicd::Vector3f    p                 // Momentum [GeV]
+      - eicd::Vector3d    v                 // Vertex [mm]
       - float             time              // Time in [ns]
       - int32_t           pid               // Particle PDG code
       - int16_t           status            // Status code
@@ -237,8 +237,8 @@ datatypes:
     Members:
       - int32_t           type              // type of reconstructed particle. Check/set collection parameters ReconstructedParticleTypeNames and ReconstructedParticleTypeValues.
       - float             energy            // [GeV] energy of the reconstructed particle. Four momentum state is not kept consistent internally.
-      - edm4hep::Vector3f momentum          // [GeV] particle momentum. Four momentum state is not kept consistent internally.
-      - edm4hep::Vector3f referencePoint    // [mm] reference, i.e. where the particle has been measured
+      - eicd::Vector3f    momentum          // [GeV] particle momentum. Four momentum state is not kept consistent internally.
+      - eicd::Vector3f    referencePoint    // [mm] reference, i.e. where the particle has been measured
       - float             charge            // charge of the reconstructed particle.
       - float             mass              // [GeV] mass of the reconstructed particle, set independently from four vector. Four momentum state is not kept consistent internally.
       - float             goodnessOfPID     // overall goodness of the PID on a scale of [0;1]
@@ -267,7 +267,7 @@ datatypes:
   ## ==========================================================================
   ## Calorimetry
   ## ==========================================================================
-  eic::RawCalorimeterHit:
+  eicd::RawCalorimeterHit:
     Description: "Raw (digitized) calorimeter hit"
     Author: "W. Armstrong, S. Joosten"
     Members:
@@ -278,7 +278,7 @@ datatypes:
         ##        really not what most calorimetry sensors will give us AFAIK...
       - uint64_t           timeStamp         // Timing in TDC
 
-  eic::CalorimeterHit:
+  eicd::CalorimeterHit:
     Description: "Calorimeter hit"
     Author: "W. Armstrong, S. Joosten"
     Members:
@@ -297,15 +297,15 @@ datatypes:
   ## Clustering
   ## ==========================================================================
   
-  eic::ProtoCluster:
+  eicd::ProtoCluster:
     Description: "Collection of hits identified by the clustering algorithm to belong together"
     Author: "S. Joosten"
     OneToManyRelations:
-      - eic::CalorimeterHit  hits           // Hits associated with this cluster
+      - eicd::CalorimeterHit hits            // Hits associated with this cluster
     VectorMembers:
-      - float                weights        // Weight for each of the hits, mirrors hits array
+      - float             weights           // Weight for each of the hits, mirrors hits array
 
-  eic::Cluster:
+  eicd::Cluster:
     Description: "EIC hit cluster, reworked to more closely resemble EDM4hep"
     Author: "W. Armstrong, S. Joosten, C.Peng"
     Members:
@@ -326,15 +326,15 @@ datatypes:
       - float             hitContributions  // Energy contributions of the hits. Runs parallel to ::hits()
       - float             subdetectorEnergies // Energies observed in each subdetector used for this cluster.
     OneToManyRelations:
-      - eic::Cluster      clusters          // Clusters that have been combined to form this cluster
-      - eic::CalorimeterHit hits            // Hits that have been combined to form this cluster
-      #- eic::ParticleID  particleIDs       // Particle IDs sorted by likelihood, TODO
+      - eicd::Cluster     clusters          // Clusters that have been combined to form this cluster
+      - eicd::CalorimeterHit hits           // Hits that have been combined to form this cluster
+      - eicd::ParticleID  particleIDs       // Particle IDs sorted by likelihood
 
   ## ==========================================================================
-  ## RICH/Cherenkov data structures
+  ## RICH/Cherenkov and PID
   ## ==========================================================================
 
-  eic::RawPMTHit:
+  eicd::RawPMTHit:
     Description: "EIC Raw PMT hit"
     Author: "S. Joosten, C. Peng"
     Members:
@@ -344,7 +344,7 @@ datatypes:
       ##        when we increase realism
       - uint32_t          timeStamp         // PMT signal time [TDC]
 
-  eic::PMTHit:
+  eicd::PMTHit:
     Description: "EIC PMT hit"
     Author: "S. Joosten, C. Peng"
     Members:
@@ -358,7 +358,8 @@ datatypes:
       - int32_t           sector            // The sector this hit occured in
       - eicd::Vector3f    local             // The local position of the hit in detector coordinates (relative to the sector) [mm]
 
-  eic::RingImage:
+  eicd::RingImage:
+    ##@TODO: RICH reconstruction still needs an overhaul
     Description: "EIC Ring Image Cluster"
     Author: "S. Joosten, C. Peng"
     Members:
@@ -370,11 +371,22 @@ datatypes:
       - float             radius            // Radius of the best fit ring [mm]
       - float             radiusError       // Estimated error from the fit [mm]
 
+  eicd::ParticleID:
+    Description: "Particle identification information"
+    Author: "S. Joosten, based off EDM4hep"
+    Members:
+      - int32_t           type              // User defined type info
+      - int32_t           PDG               // PDG Code of this ID (999999 if unknown)
+      - int32_t           algorithmType     // Type of algorithm/module that created this hypothesis
+      - float             likelihood        // likelihood of this hypothesis - in a user defined normalization
+    VectorMembers:
+      - float             parameters        // parameters associated with this hypothesis. Check/set collection ParameterNames_PIDAlgorithmTypeName for decoding.
+
   ## ==========================================================================
   ## Tracking
   ## ==========================================================================
   
-  eic::RawTrackerHit:
+  eicd::RawTrackerHit:
     Description: "Raw (digitized) tracker hit"
     Author: "W. Armstrong, S. Joosten"
     Members:
@@ -383,7 +395,7 @@ datatypes:
       ## @TODO: is charge appropriate here? Needs revisiting.
       - int32_t           timeStamp         // TDC value.
 
-  eic::TrackerHit:
+  eicd::TrackerHit:
     Description: "Tracker hit (reconstructed from Raw)"
     Author: "W. Armstrong, S. Joosten"
     Members:
@@ -395,7 +407,7 @@ datatypes:
       - float             edep              // Energy deposit in this hit [GeV]
       - float             edepError         // Error on the energy deposit [GeV]
 
-  eic::Trajectory:
+  eicd::Trajectory:
     Description: "Raw trajectory from the tracking algorithm"
     Author: "S. Joosten, S. Li"
     Members:
@@ -410,11 +422,13 @@ datatypes:
     VectorMembers:
       - float             measurementChi2   // Chi2 for each of the measurements
       - float             outlierChi2       // Chi2 for each of the outliers
+    OneToOneRelations:
+      - eicd::TrackParameters trackParameters // Associated track parameters, if any
     OneToManyRelations:
-      - eic::TrackerHit   measurementHits   // Measurement hits used in this trajectory
-      - eic::TrackerHit   outlierHits       // Outlier hits not used in this trajectory
+      - eicd::TrackerHit  measurementHits   // Measurement hits used in this trajectory
+      - eicd::TrackerHit  outlierHits       // Outlier hits not used in this trajectory
   
-  eic::TrackParameters:
+  eicd::TrackParameters:
     Description: "ACTS Bound Track parameters"
     Author: "W. Armstrong, S. Joosten"
     Members:
@@ -429,9 +443,9 @@ datatypes:
       - float             timeError         // Error on the time
       - float             charge            // Particle charge
     OneToOneRelations:
-      - eic::Trajectory   trajectory        // Trajectory associated with these track parameters
+      - eicd::Trajectory  trajectory        // Trajectory associated with these track parameters
 
-  eic::Track:
+  eicd::Track:
     Description: "Track information at the vertex"
     Author: "S. Joosten"
     Members:
@@ -444,18 +458,18 @@ datatypes:
       - float             timeError         // Error on the track vertex time
       - float             charge            // Particle charge
     OneToManyRelations:
-      - eic::TrackParameters parameters     // Track fit parameters, the first entry (if present) is evaluated at the track head
-      - eic::TrackerHit   trackerHits       // Hits that were used for this track
-      - eic::Track        tracks            // Tracks (segments) that have been combined to create this track
+      - eicd::TrackParameters parameters    // Track fit parameters, the first entry (if present) is evaluated at the track head
+      - eicd::TrackerHit  trackerHits       // Hits that were used for this track
+      - eicd::Track       tracks            // Tracks (segments) that have been combined to create this track
 
-  eic::TrackSegment:
+  eicd::TrackSegment:
     Description: "A track segment defined by one or more points along a track."
     Author: "S. Joosten"
     Members:
       - float             length            // Pathlength from the first to the last point
       - float             lengthError       // Error on the segment length
     OneToOneRelations:
-      - eic::Track        track             // Track used for this projection
+      - eicd::Track       track             // Track used for this projection
     VectorMembers:
       - eicd::TrackPoint  points            // Points where the track parameters were evaluated
 
@@ -463,21 +477,30 @@ datatypes:
   ## Vertexing
   ## ==========================================================================
 
-  eic::Vertex:
+  eicd::Vertex:
     Description: "EIC vertex"
-    Author: "W. Armstrong, S. Joosten"
+    Author: "W. Armstrong, S. Joosten, based off EDM4hep"
     Members:
-      - eicd::Vector3f    position          // Postion of vertex [mm]
-      - float             time              // Time of vertex [ns]
-      - float             chi2              // Chi squared of the vertex fit.
-      - float             probability       // Probability of the vertex fit
-      - bool              primary           // Whether it is the primary vertex of the event
+      - int32_t             primary       // Boolean flag, if vertex is the primary vertex of the event
+      - float               chi2          // Chi-squared of the vertex fit
+      - float               probability   // Probability of the vertex fit
+      - eicd::Vector3f      position      // [mm] position of the vertex.
+      ## this is named "covMatrix" in EDM4hep, renamed for consistency with the rest of EICD
+      - eicd::Cov3f         positionError // Covariance matrix of the position 
+      - int32_t             algorithmType // Type code for the algorithm that has been used to create the vertex - check/set the collection parameters AlgorithmName and AlgorithmType. 
+      ## Additional parameter not in EDM4hep: vertex time
+      - float               time          // Vertex time
+    VectorMembers:
+      - float               parameters    // Additional parameters related to this vertex - check/set the collection parameter "VertexParameterNames" for the parameters meaning. 
+    OneToOneRelations:
+      ## @TODO: why one and not multiple particles?
+      - eicd::ReconstructedParticle associatedParticle // reconstructed particle associated to this vertex.
 
   ## ==========================================================================
   ## Kinematic reconstruction
   ## ==========================================================================
 
-  eic::InclusiveKinematics:
+  eicd::InclusiveKinematics:
     Description: "Kinematic variables for DIS events"
     Author: "S. Joosten, W. Deconinck"
     Members:
@@ -486,9 +509,10 @@ datatypes:
       - float             W                 // Invariant mass of final state [GeV]
       - float             y                 // Inelasticity (P.q/P.k)
       - float             nu                // Energy transfer P.q/M [GeV]
-      ## Spin state?
-      ## phi_S?
-      #- eic::Index        scatID            // Associated scattered electron (if identified)
+    OneToOneRelations:
+      - eicd::ReconstructedParticle scat    // Associated scattered electron (if identified)
+      ## @TODO: Spin state?
+      ## - phi_S?
 
   ## ==========================================================================
   ## Data-Montecarlo relations
@@ -515,7 +539,7 @@ datatypes:
       - int32_t           simID             // Index of corresponding MCParticle (position in MCParticles array) 
       - float             weight            // weight of this association
     OneToOneRelations:
-      - eic::Cluster     rec               // reference to the cluster
+      - eicd::Cluster     rec               // reference to the cluster
       #- edm4hep::MCParticle sim             // reference to the Monte-Carlo particle
       #                                      --> not possible as not in EICD
   eicd::MCRecoTrackParticleAssociation:
@@ -525,7 +549,7 @@ datatypes:
       - int32_t           simID             // Index of corresponding MCParticle (position in MCParticles array) 
       - float             weight            // weight of this association
     OneToOneRelations:
-      - eic::Track       rec               // reference to the track
+      - eicd::Track       rec               // reference to the track
       #- edm4hep::MCParticle sim             // reference to the Monte-Carlo particle
       #                                      --> not possible as not in EICD
       #                                      --> not possible as not in EICD
@@ -536,6 +560,6 @@ datatypes:
       - int32_t           simID             // Index of corresponding MCParticle (position in MCParticles array) 
       - float             weight            // weight of this association
     OneToOneRelations:
-      - eic::Vertex       rec               // reference to the vertex
+      - eicd::Vertex       rec               // reference to the vertex
       #- edm4hep::MCParticle sim             // reference to the Monte-Carlo particle
       #                                      --> not possible as not in EICD
