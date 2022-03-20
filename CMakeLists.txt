@@ -14,7 +14,7 @@ if(APPLE)
 endif(APPLE)
 
 
-find_package(podio 0.11.0 REQUIRED)
+find_package(podio 0.14.1 REQUIRED)
 include_directories(${podio_INCLUDE_DIR})
 
 find_package(EDM4HEP REQUIRED)
