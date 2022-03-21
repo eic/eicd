@@ -162,7 +162,7 @@ components:
         Cov4f(double vx, double vy, double vz, double vt,\n
               double vxy = 0, double vxz = 0, double vxt = 0,\n
               double vyz = 0, double vyt = 0, double vzt = 0)\n
-          : xx{static_cast<float>(vx)}, yy{static_cast<float>(vy)}, zz{static_cast<float>(vz)}, tt{static_cast<float>(vz)},\n
+          : xx{static_cast<float>(vx)}, yy{static_cast<float>(vy)}, zz{static_cast<float>(vz)}, tt{static_cast<float>(vt)},\n
             xy{static_cast<float>(vxy)}, xz{static_cast<float>(vxz)}, xt{static_cast<float>(vxt)},\n
             yz{static_cast<float>(vyz)}, yt{static_cast<float>(vyt)}, zt{static_cast<float>(vzt)} {}\n
         float operator()(unsigned i, unsigned j) const {\n
