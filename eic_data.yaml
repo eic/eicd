@@ -201,7 +201,7 @@ components:
       - float             pathlengthError // Error on the pathlenght
  
   ## PID hypothesis from Cherenkov detectors
-  eic::CherenkovPdgHypothesis:
+  eicd::CherenkovPdgHypothesis:
     Members:
       - char              radiator          // Radiator number (0/1/..) in a sequence of the IRTAlgorithm configuration file
       - int32_t           pdg               // PDG code
@@ -209,7 +209,7 @@ components:
       - float             weight            // The weight associated with this hypothesis (the higher the more probable)
 
   ## Cherenkov angle measurement for a given radiator
-  eic::CherenkovThetaAngleMeasurement:
+  eicd::CherenkovThetaAngleMeasurement:
     Members:
       - char              radiator          // Radiator number (0/1/..) in a sequence of the IRTAlgorithm configuration file
       - float             npe               // Overall p.e. count associated with this estimate
@@ -285,12 +285,12 @@ datatypes:
         bool isCompound() const {return particles_size() > 0;}\n
         "
 
-  eic::CherenkovParticleID:
+  eicd::CherenkovParticleID:
     Description: "Cherenkov detector PID"
     Author: "A. Kiselev, C. Dilks"
     VectorMembers:
-      - eic::CherenkovPdgHypothesis options        // Evaluated PDG hypotheses, typically (e/pi/K/p)
-      - eic::CherenkovThetaAngleMeasurement angles // Evaluated Cherenkov angles for different radiators
+      - eicd::CherenkovPdgHypothesis options        // Evaluated PDG hypotheses, typically (e/pi/K/p)
+      - eicd::CherenkovThetaAngleMeasurement angles // Evaluated Cherenkov angles for different radiators
     OneToOneRelations:
       ## @TODO: should it be one-to-one?
       - eicd::ReconstructedParticle associatedParticle // associated reconstructed particle
