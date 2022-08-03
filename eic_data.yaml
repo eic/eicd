@@ -167,12 +167,12 @@ datatypes:
       ## @TODO: Do we need timing info? Or do we rely on the start vertex time?
     OneToOneRelations:
       - eicd::Vertex      startVertex       // Start vertex associated to this particle
-      - eicd::ParticleID  particleIDUsed    // particle ID used for the kinematics of this particle
+      - edm4hep::ParticleID  particleIDUsed    // particle ID used for the kinematics of this particle
     OneToManyRelations:
       - eicd::Cluster     clusters          // Clusters used for this particle
       - eicd::Track       tracks            // Tracks used for this particle
       - eicd::ReconstructedParticle particles // Reconstructed particles that have been combined to this particle
-      - eicd::ParticleID  particleIDs       // All associated particle IDs for this particle (not sorted by likelihood)
+      - edm4hep::ParticleID  particleIDs       // All associated particle IDs for this particle (not sorted by likelihood)
     ExtraCode:
       declaration: "
         bool isCompound() const {return particles_size() > 0;}\n
@@ -242,7 +242,7 @@ datatypes:
     OneToManyRelations:
       - eicd::Cluster     clusters          // Clusters that have been combined to form this cluster
       - eicd::CalorimeterHit hits           // Hits that have been combined to form this cluster
-      - eicd::ParticleID  particleIDs       // Particle IDs sorted by likelihood
+      - edm4hep::ParticleID  particleIDs       // Particle IDs sorted by likelihood
 
   ## ==========================================================================
   ## RICH/Cherenkov and PID
@@ -284,17 +284,6 @@ datatypes:
       - float             thetaError        // Error on the opening angle
       - float             radius            // Radius of the best fit ring [mm]
       - float             radiusError       // Estimated error from the fit [mm]
-
-  eicd::ParticleID:
-    Description: "Particle identification information"
-    Author: "S. Joosten, based off EDM4hep"
-    Members:
-      - int32_t           type              // User defined type info
-      - int32_t           PDG               // PDG Code of this ID (999999 if unknown)
-      - int32_t           algorithmType     // Type of algorithm/module that created this hypothesis
-      - float             likelihood        // likelihood of this hypothesis - in a user defined normalization
-    VectorMembers:
-      - float             parameters        // parameters associated with this hypothesis. Check/set collection ParameterNames_PIDAlgorithmTypeName for decoding.
 
   ## ==========================================================================
   ## Tracking
