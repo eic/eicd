@@ -421,9 +421,6 @@ datatypes:
   ## Data-Montecarlo relations
   ## ==========================================================================
 
-  ## This is similar to the EDM4hep association, except that we can't
-  ## explicitly refer to MCParticles (as it's not part of EICD...).
-  ## To work around this, we can just store the index in MCParticles.
   eicd::MCRecoParticleAssociation:
     Description: "Used to keep track of the correspondence between MC and reconstructed particles"
     Author: "S. Joosten"
@@ -433,8 +430,7 @@ datatypes:
       - float             weight            // weight of this association
     OneToOneRelations :
       - eicd::ReconstructedParticle  rec    // reference to the reconstructed particle
-      #- edm4hep::MCParticle sim             // reference to the Monte-Carlo particle
-      #                                      --> not possible as not in EICD
+      - edm4hep::MCParticle sim             // reference to the Monte-Carlo particle
 
   eicd::MCRecoClusterParticleAssociation:
     Description: "Association between a Cluster and a MCParticle"
@@ -445,8 +441,8 @@ datatypes:
       - float             weight            // weight of this association
     OneToOneRelations:
       - eicd::Cluster     rec               // reference to the cluster
-      #- edm4hep::MCParticle sim             // reference to the Monte-Carlo particle
-      #                                      --> not possible as not in EICD
+      - edm4hep::MCParticle sim             // reference to the Monte-Carlo particle
+
   eicd::MCRecoTrackParticleAssociation:
     Description: "Association between a Track and a MCParticle"
     Author : "S. Joosten"
@@ -456,9 +452,8 @@ datatypes:
       - float             weight            // weight of this association
     OneToOneRelations:
       - eicd::Track       rec               // reference to the track
-      #- edm4hep::MCParticle sim             // reference to the Monte-Carlo particle
-      #                                      --> not possible as not in EICD
-      #                                      --> not possible as not in EICD
+      - edm4hep::MCParticle sim             // reference to the Monte-Carlo particle
+
   eicd::MCRecoVertexParticleAssociation:
     Description: "Association between a Vertex and a MCParticle"
     Author : "S. Joosten"
@@ -467,6 +462,5 @@ datatypes:
       - uint32_t          recID             // Index of corresponding Vertex (position in Vertices array)
       - float             weight            // weight of this association
     OneToOneRelations:
-      - eicd::Vertex       rec               // reference to the vertex
-      #- edm4hep::MCParticle sim             // reference to the Monte-Carlo particle
-      #                                      --> not possible as not in EICD
+      - eicd::Vertex        rec             // reference to the vertex
+      - edm4hep::MCParticle sim             // reference to the Monte-Carlo particle
