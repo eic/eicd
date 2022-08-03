@@ -35,7 +35,6 @@ template <>
 inline auto vector_y<eicd::Vector2f>(const eicd::Vector2f& v) {
   return v.b;
 }
-// Vector2f uses a,b instead of x,y
 template <>
 inline auto vector_x<edm4hep::Vector2f>(const edm4hep::Vector2f& v) {
   return v.a;
