@@ -54,7 +54,7 @@ install(TARGETS ${EICD_INSTALL_LIBS}
   COMPONENT dev)
 
 install(FILES
-  "${PROJECT_BINARY_DIR}/eicd/eicdDictDict.rootmap"
+  "${PROJECT_BINARY_DIR}/eicdDictDict.rootmap"
   DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT dev)
 
 install(FILES
@@ -62,7 +62,7 @@ install(FILES
   DESTINATION "${CMAKE_INSTALL_DATADIR}/eicd" COMPONENT dev)
 
 install(FILES
-  "${PROJECT_BINARY_DIR}/eicd/libeicdDict_rdict.pcm"
+  "${PROJECT_BINARY_DIR}/libeicdDict_rdict.pcm"
   DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT dev)
 
 add_custom_target( doc_doxygen #ALL 
