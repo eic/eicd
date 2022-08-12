@@ -238,19 +238,6 @@ datatypes:
   ## Particle info
   ## ==========================================================================
 
-  eicd::BasicParticle:
-    #DEPRECATED
-    Description: "Basic particle used internally to communicate basic particle properties."
-    Author: "W. Armstrong, S. Joosten"
-    Members:
-      - eicd::Vector3f    p                 // Momentum [GeV]
-      - eicd::Vector3d    v                 // Vertex [mm]
-      - float             time              // Time in [ns]
-      - int32_t           pid               // Particle PDG code
-      - int16_t           status            // Status code
-      - int16_t           charge            // Particle charge (or sign)
-      - float             weight            // Particle weight, e.g. from PID algorithm [0-1]
-
   eicd::ReconstructedParticle:
     Description: "EIC Reconstructed Particle"
     Author: "W. Armstrong, S. Joosten, F. Gaede"
@@ -556,7 +543,8 @@ datatypes:
     Description: "Used to keep track of the correspondence between MC and reconstructed particles"
     Author: "S. Joosten"
     Members:
-      - uint32_t          simID             // Index of corresponding MCParticle (position in MCParticles array) 
+      - uint32_t          simID             // Index of corresponding MCParticle (position in MCParticles array)
+      - uint32_t          recID             // Index of corresponding ReconstructedParticle (position in ReconstructedParticles array)
       - float             weight            // weight of this association
     OneToOneRelations :
       - eicd::ReconstructedParticle  rec    // reference to the reconstructed particle
@@ -567,7 +555,8 @@ datatypes:
     Description: "Association between a Cluster and a MCParticle"
     Author : "S. Joosten"
     Members:
-      - uint32_t          simID             // Index of corresponding MCParticle (position in MCParticles array) 
+      - uint32_t          simID             // Index of corresponding MCParticle (position in MCParticles array)
+      - uint32_t          recID             // Index of corresponding Cluster (position in Clusters array)
       - float             weight            // weight of this association
     OneToOneRelations:
       - eicd::Cluster     rec               // reference to the cluster
@@ -577,7 +566,8 @@ datatypes:
     Description: "Association between a Track and a MCParticle"
     Author : "S. Joosten"
     Members:
-      - uint32_t          simID             // Index of corresponding MCParticle (position in MCParticles array) 
+      - uint32_t          simID             // Index of corresponding MCParticle (position in MCParticles array)
+      - uint32_t          recID             // Index of corresponding Track (position in Tracks array)
       - float             weight            // weight of this association
     OneToOneRelations:
       - eicd::Track       rec               // reference to the track
@@ -588,7 +578,8 @@ datatypes:
     Description: "Association between a Vertex and a MCParticle"
     Author : "S. Joosten"
     Members:
-      - uint32_t          simID             // Index of corresponding MCParticle (position in MCParticles array) 
+      - uint32_t          simID             // Index of corresponding MCParticle (position in MCParticles array)
+      - uint32_t          recID             // Index of corresponding Vertex (position in Vertices array)
       - float             weight            // weight of this association
     OneToOneRelations:
       - eicd::Vertex       rec               // reference to the vertex
