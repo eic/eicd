@@ -29,6 +29,7 @@ target_compile_options(eicd_utils PRIVATE
 
 target_link_libraries(eicd_utils 
   PUBLIC eicd
+  PUBLIC EDM4HEP::edm4hep
   PUBLIC ROOT::GenVector ROOT::MathCore)
 
 target_include_directories(eicd_utils 
