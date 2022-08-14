@@ -1,15 +1,5 @@
 find_package(ROOT REQUIRED COMPONENTS GenVector MathCore)
 
-#ROOT_GENERATE_DICTIONARY(G__NPDetGeoCad
-#  include/TGeoToStep.h
-#  OPTIONS -I${OpenCASCADE_INCLUDE_DIR} 
-#  OPTIONS -I${CMAKE_CURRENT_SOURCE_DIR} 
-#  OPTIONS -I${CMAKE_CURRENT_SOURCE_DIR}/include 
-#  OPTIONS -I${CMAKE_CURRENT_SOURCE_DIR}/src 
-#  LINKDEF include/LinkDef.h
-#  )
-#add_custom_target(G__NPDetGeoCad_ROOTDICT DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/G__NPDetGeoCad.cxx)
-
 add_library(eicd_utils SHARED
   src/utils.cxx
   )
@@ -44,11 +34,6 @@ install(FILES
   include/eicd/vector_utils_legacy.h
   DESTINATION include/eicd
   )
-#install(FILES
-#  "${CMAKE_CURRENT_BINARY_DIR}/libNPDetGeoCad.rootmap"
-#  "${CMAKE_CURRENT_BINARY_DIR}/libNPDetGeoCad_rdict.pcm"
-#  DESTINATION lib)
-
 
 install(TARGETS eicd_utils
   EXPORT ${PROJECT_NAME}Targets
