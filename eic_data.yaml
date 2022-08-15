@@ -280,7 +280,7 @@ datatypes:
       - eicd::CherenkovThetaAngleMeasurement angles // Evaluated Cherenkov angles for different radiators
     OneToOneRelations:
       ## @TODO: should it be one-to-one?
-      - eicd::ReconstructedParticle associatedParticle // associated reconstructed particle
+      - edm4hep::MCParticle associatedParticle // associated reconstructed particle
 
   ## ==========================================================================
   ## Calorimetry
