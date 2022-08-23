@@ -37,9 +37,8 @@ jobs:
         name: build-eic-shell
         path: build/
     - run: |
-        apk update
-        apk add doxygen graphviz ttf-ubuntu-font-family
-        make -Cbuild docs
+        apk add doxygen graphviz
+        make -C build docs
     - uses: actions/upload-artifact@v3
       with:
         name: docs-eic-shell
