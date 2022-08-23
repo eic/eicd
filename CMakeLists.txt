@@ -68,14 +68,15 @@ install(FILES
 # -------------------------
 # install class documentation
 
+cmake_path(RELATIVE_PATH CMAKE_CURRENT_BINARY_DIR
+  OUTPUT_VARIABLE CMAKE_CURRENT_BINARY_RELATIVE_DIR)
+configure_file(
+  ${CMAKE_SOURCE_DIR}/docs/Doxyfile.in
+  ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+  @ONLY)
+
 find_package(Doxygen COMPONENTS dot)
 if(DOXYGEN_FOUND)
-  cmake_path(RELATIVE_PATH CMAKE_CURRENT_BINARY_DIR
-    OUTPUT_VARIABLE CMAKE_CURRENT_BINARY_RELATIVE_DIR)
-  configure_file(
-    ${CMAKE_SOURCE_DIR}/docs/Doxyfile.in
-    ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-    @ONLY)
   add_custom_target(docs ALL
     COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
