@@ -1,6 +1,10 @@
 name: linux-eic-shell
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '41 4 * * 0'
 
 jobs:
   build-test:
@@ -44,6 +48,24 @@ jobs:
         name: docs-eic-shell
         path: build/docs/html/
         if-no-files-found: error
+    - uses: actions/upload-pages-artifact@v1
+      with:
+        path: build/docs/html/
+        retention-days: 7
+
+  deploy-docs:
+    needs: build-docs
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
 
   trigger-juggler:
     runs-on: ubuntu-latest
