@@ -18,7 +18,31 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: build-eic-shell
+        path: build/
+        if-no-files-found: error
+    - uses: actions/upload-artifact@v3
+      with:
+        name: install-eic-shell
         path: install/
+        if-no-files-found: error
+
+  build-docs:
+    runs-on: ubuntu-latest
+    container: alpine:latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/download-artifact@v3
+      with:
+        name: build-eic-shell
+        path: build/
+    - run: |
+        apk update
+        apk add doxygen graphviz ttf-ubuntu-font-family
+        make -Cbuild docs
+    - uses: actions/upload-artifact@v3
+      with:
+        name: docs-eic-shell
+        path: build/docs/html/
         if-no-files-found: error
 
   trigger-juggler:
