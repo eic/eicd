@@ -60,7 +60,6 @@ checks:juggler:
     JUGGLER_EICD_VERSION: "$EIC_DATA_MODEL_VERSION"
   trigger:
     project: EIC/juggler
-    branch: prepare-removal-eicd-vector
     strategy: depend
 
       #benchmarks:physics:
