@@ -28,6 +28,7 @@ jobs:
 
   build-docs:
     runs-on: ubuntu-latest
+    needs: build-test
     container: alpine:latest
     steps:
     - uses: actions/checkout@v2
