@@ -48,6 +48,9 @@ jobs:
         name: docs-eic-shell
         path: build/docs/html/
         if-no-files-found: error
+    - run: |
+        apk add bash
+        # FIXME tracking https://github.com/actions/upload-pages-artifact/pull/14
     - uses: actions/upload-pages-artifact@v1
       if: github.ref == 'refs/heads/master'
       with:
