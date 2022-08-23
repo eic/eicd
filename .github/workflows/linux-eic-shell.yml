@@ -38,7 +38,7 @@ jobs:
         path: build/
     - run: |
         apk add doxygen graphviz
-        make -C build docs
+        doxygen build/Doxyfile
     - uses: actions/upload-artifact@v3
       with:
         name: docs-eic-shell
