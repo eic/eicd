@@ -46,3 +46,5 @@ jobs:
           -f target_url=${{ steps.trigger.outputs.web_url }} \
           -f description='The juggler pipelines have been triggered...' \
           -f context='eicweb/juggler'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
