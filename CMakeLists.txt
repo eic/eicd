@@ -68,8 +68,7 @@ install(FILES
 # -------------------------
 # install class documentation
 
-find_package(Doxygen
-             REQUIRED dot)
+find_package(Doxygen COMPONENTS dot)
 if(DOXYGEN_FOUND)
   configure_file(
     ${CMAKE_SOURCE_DIR}/docs/Doxyfile.in
