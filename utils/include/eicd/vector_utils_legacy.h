@@ -105,61 +105,61 @@ template <class V> double projection(const V& v, const V& v1) {
 
 } // namespace eicd
 
-inline eicd::Vector2f operator+(const eicd::Vector2f& v1,
-                                const eicd::Vector2f& v2) {
-  using ValueType = decltype(eicd::vector_x(eicd::Vector2f()));
+inline edm4hep::Vector2f operator+(const edm4hep::Vector2f& v1,
+                                   const edm4hep::Vector2f& v2) {
+  using ValueType = decltype(eicd::vector_x(edm4hep::Vector2f()));
   const ValueType x = eicd::vector_x(v1) + eicd::vector_x(v2);
   const ValueType y = eicd::vector_y(v1) + eicd::vector_y(v2);
   return {x, y};
 }
-inline eicd::Vector3f operator+(const eicd::Vector3f& v1,
-                                const eicd::Vector3f& v2) {
-  using ValueType = decltype(eicd::vector_x(eicd::Vector3f()));
+inline edm4hep::Vector3f operator+(const edm4hep::Vector3f& v1,
+                                   const edm4hep::Vector3f& v2) {
+  using ValueType = decltype(eicd::vector_x(edm4hep::Vector3f()));
   const ValueType x = eicd::vector_x(v1) + eicd::vector_x(v2);
   const ValueType y = eicd::vector_y(v1) + eicd::vector_y(v2);
   const ValueType z = eicd::vector_z(v1) + eicd::vector_z(v2);
   return {x, y, z};
 }
-inline double operator*(const eicd::Vector2f& v1, const eicd::Vector2f& v2) {
+inline double operator*(const edm4hep::Vector2f& v1, const edm4hep::Vector2f& v2) {
   return eicd::vector_x(v1) * eicd::vector_x(v2) +
          eicd::vector_y(v1) * eicd::vector_y(v2);
 }
-inline double operator*(const eicd::Vector3f& v1, const eicd::Vector3f& v2) {
+inline double operator*(const edm4hep::Vector3f& v1, const edm4hep::Vector3f& v2) {
   return eicd::vector_x(v1) * eicd::vector_x(v2) +
          eicd::vector_y(v1) * eicd::vector_y(v2) +
          eicd::vector_z(v1) * eicd::vector_z(v2);
 }
-inline eicd::Vector2f operator*(const double d, const eicd::Vector2f& v) {
-  using ValueType = decltype(eicd::vector_x(eicd::Vector2f()));
+inline edm4hep::Vector2f operator*(const double d, const edm4hep::Vector2f& v) {
+  using ValueType = decltype(eicd::vector_x(edm4hep::Vector2f()));
   const ValueType x = d * eicd::vector_x(v);
   const ValueType y = d * eicd::vector_y(v);
   return {x, y};
 }
-inline eicd::Vector3f operator*(const double d, const eicd::Vector3f& v) {
-  using ValueType = decltype(eicd::vector_x(eicd::Vector3f()));
+inline edm4hep::Vector3f operator*(const double d, const edm4hep::Vector3f& v) {
+  using ValueType = decltype(eicd::vector_x(edm4hep::Vector3f()));
   const ValueType x = d * eicd::vector_x(v);
   const ValueType y = d * eicd::vector_y(v);
   const ValueType z = d * eicd::vector_z(v);
   return {x, y, z};
 }
-inline eicd::Vector2f operator*(const eicd::Vector2f& v, const double d) {
+inline edm4hep::Vector2f operator*(const edm4hep::Vector2f& v, const double d) {
   return d * v;
 }
-inline eicd::Vector3f operator*(const eicd::Vector3f& v, const double d) {
+inline edm4hep::Vector3f operator*(const edm4hep::Vector3f& v, const double d) {
   return d * v;
 }
-inline eicd::Vector2f operator-(const eicd::Vector2f& v1,
-                                const eicd::Vector2f& v2) {
+inline edm4hep::Vector2f operator-(const edm4hep::Vector2f& v1,
+                                   const edm4hep::Vector2f& v2) {
   return v1 + (-1. * v2);
 }
-inline eicd::Vector3f operator-(const eicd::Vector3f& v1,
-                                const eicd::Vector3f& v2) {
+inline edm4hep::Vector3f operator-(const edm4hep::Vector3f& v1,
+                                   const edm4hep::Vector3f& v2) {
   return v1 + (-1. * v2);
 }
-inline eicd::Vector2f operator/(const eicd::Vector2f& v, const double d) {
+inline edm4hep::Vector2f operator/(const edm4hep::Vector2f& v, const double d) {
   return (1. / d) * v;
 }
-inline eicd::Vector3f operator/(const eicd::Vector3f& v, const double d) {
+inline edm4hep::Vector3f operator/(const edm4hep::Vector3f& v, const double d) {
   return (1. / d) * v;
 }
 #endif
