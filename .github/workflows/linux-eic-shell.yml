@@ -49,6 +49,7 @@ jobs:
         path: build/docs/html/
         if-no-files-found: error
     - uses: actions/upload-pages-artifact@v1
+      if: github.ref == 'refs/heads/master'
       with:
         path: build/docs/html/
         retention-days: 7
@@ -63,9 +64,10 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/master'
+      id: deployment
+      uses: actions/deploy-pages@v1
 
   trigger-juggler:
     runs-on: ubuntu-latest
