@@ -5,7 +5,7 @@ A data model for EIC defined with [podio](https://github.com/AIDASoft/podio) and
 
 ## Full Description File
 
-The entire data model is defined with a single YAML file. Here is the current definition:
+The entire data model is defined with a single YAML file, `eic_data.yml`.
 
 \verbinclude eic_data.yaml
 
