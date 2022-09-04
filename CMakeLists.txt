@@ -19,6 +19,7 @@ find_package(podio 0.15 REQUIRED)
 include_directories(${podio_INCLUDE_DIR})
 
 find_package(EDM4HEP 0.4.1 REQUIRED)
+include_directories(${EDM4HEP_INCLUDE_DIR})
 
 #include(cmake/root.cmake)
 list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
